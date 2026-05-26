@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MAFIA VOCER</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:
+radial-gradient(circle at top,#0f4de8,#04195d 45%,#010814 100%);
+padding:12px;
+min-height:100vh;
+color:white;
+overflow-x:hidden;
+}
+
+/* ========================= */
+/* HEADER */
+/* ========================= */
+
+.header{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+margin-bottom:12px;
+}
+
+.headBox{
+height:64px;
+border-radius:14px;
+border:2px solid #39dfff;
+
+background:
+linear-gradient(to bottom,#031539,#000811);
+
+box-shadow:
+0 0 18px rgba(0,191,255,.30),
+inset 0 0 40px rgba(0,0,0,.95);
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+padding:6px;
+}
+
+/* ========================= */
+/* LOGO */
+/* ========================= */
+
+.logo{
+font-size:24px;
+font-weight:900;
+color:#ffd34c;
+white-space:nowrap;
+
+text-shadow:
+0 0 10px rgba(255,211,76,.45);
+}
+
+/* ========================= */
+/* CREATOR */
+/* ========================= */
+
+.creator{
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+
+line-height:1.1;
+text-align:center;
+
+font-size:15px;
+font-weight:900;
+font-style:italic;
+
+color:#ffd34c;
+}
+
+.creator span:last-child{
+font-size:17px;
+margin-top:2px;
+}
+
+/* ========================= */
+/* PANEL */
+/* ========================= */
+
+.panel{
+margin-bottom:14px;
+border-radius:18px;
+border:2px solid #39dfff;
+
+background:
+linear-gradient(to bottom,#021235,#000811);
+
+overflow:hidden;
+
+box-shadow:
+0 0 20px rgba(0,191,255,.30),
+inset 0 0 60px rgba(0,0,0,.95);
+}
+
+/* ========================= */
+/* PANEL TOP */
+/* ========================= */
+
+.panelTop{
+position:relative;
+
+display:flex;
+align-items:center;
+justify-content:space-between;
+
+padding:14px;
+
+border-bottom:
+1px solid rgba(255,255,255,.06);
+}
+
+/* ========================= */
+/* LEFT */
+/* ========================= */
+
+.left{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.bar{
+width:7px;
+height:42px;
+border-radius:50px;
+background:#ffd34c;
+
+box-shadow:
+0 0 10px #ffd34c;
+}
+
+.title{
+font-size:22px;
+font-weight:900;
+color:#ffd34c;
+}
+
+/* ========================= */
+/* STATUS */
+/* ========================= */
+
+.status{
+position:absolute;
+
+left:50%;
+top:90%;
+
+transform:
+translate(-50%,-50%);
+
+font-size:14px;
+font-weight:900;
+
+white-space:nowrap;
+
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.status span{
+color:#ffd34c;
+margin-left:4px;
+}
+
+/* ========================= */
+/* SWITCH */
+/* ========================= */
+
+.switchWrap{
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:3px;
+}
+
+.switchWrap h3{
+font-size:11px;
+color:#ffd34c;
+}
+
+.switch{
+width:82px;
+height:36px;
+border-radius:50px;
+
+background:
+linear-gradient(to bottom,#00ff95,#00ba6b);
+
+position:relative;
+
+display:flex;
+align-items:center;
+
+padding-left:10px;
+
+font-size:16px;
+font-weight:900;
+
+color:black;
+
+cursor:pointer;
+
+box-shadow:
+0 0 10px rgba(0,255,149,.45);
+
+user-select:none;
+}
+
+.switch::after{
+content:"";
+
+width:28px;
+height:28px;
+
+border-radius:50%;
+
+background:white;
+
+position:absolute;
+
+right:4px;
+
+transition:.2s;
+}
+
+.switch.off{
+background:
+linear-gradient(to bottom,#777,#444);
+
+box-shadow:none;
+}
+
+.switch.off::after{
+right:50px;
+}
+
+/* ========================= */
+/* BODY */
+/* ========================= */
+
+.panelBody{
+padding:12px;
+
+display:grid;
+
+grid-template-columns:
+repeat(4,1fr);
+
+gap:10px;
+}
+
+/* ========================= */
+/* LABEL */
+/* ========================= */
+
+.box label{
+height:32px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:13px;
+font-weight:900;
+
+border-radius:10px;
+
+margin-bottom:8px;
+
+background:
+linear-gradient(to bottom,#2896ff,#0062e0);
+
+box-shadow:
+0 0 10px rgba(30,143,255,.35);
+}
+
+/* ========================= */
+/* INPUT */
+/* ========================= */
+
+.input{
+height:72px;
+
+border-radius:12px;
+
+border:2px solid rgba(255,255,255,.05);
+
+background:
+linear-gradient(to bottom,#000814,#000000);
+
+display:flex;
+align-items:center;
+justify-content:space-between;
+
+padding:10px;
+
+box-shadow:
+inset 0 0 16px rgba(0,0,0,.95);
+}
+
+/* ========================= */
+/* NUMBER */
+/* ========================= */
+
+.numberInput{
+width:100%;
+
+background:transparent;
+border:none;
+outline:none;
+
+color:white;
+
+font-size:22px;
+font-weight:900;
+}
+
+/* ========================= */
+/* ARROW */
+/* ========================= */
+
+.arrowWrap{
+display:flex;
+flex-direction:column;
+
+gap:6px;
+
+margin-left:6px;
+}
+
+.arrowBtn{
+width:22px;
+height:22px;
+
+border:none;
+
+border-radius:6px;
+
+background:#ffd84c;
+
+font-size:16px;
+font-weight:900;
+
+cursor:pointer;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+box-shadow:
+0 0 10px rgba(255,216,76,.35);
+}
+
+.arrowBtn:active{
+transform:scale(.92);
+}
+
+/* ========================= */
+/* COUNTER */
+/* ========================= */
+
+.counter{
+height:72px;
+
+border-radius:12px;
+
+border:2px solid rgba(255,255,255,.05);
+
+background:
+linear-gradient(to bottom,#000814,#000000);
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:28px;
+font-weight:900;
+
+box-shadow:
+inset 0 0 16px rgba(0,0,0,.95);
+}
+
+.counter span{
+color:#ffd34c;
+}
+
+/* ========================= */
+/* BUTTON */
+/* ========================= */
+
+.mainBtn{
+width:100%;
+height:72px;
+
+border:none;
+
+border-radius:18px;
+
+background:
+linear-gradient(to bottom,#ffe07d,#d29c22);
+
+font-size:28px;
+font-weight:900;
+
+cursor:pointer;
+
+box-shadow:
+0 0 18px rgba(255,211,76,.40);
+
+transition:.15s;
+}
+
+.mainBtn:active{
+transform:scale(.985);
+}
+
+/* ========================= */
+/* CONTROLS */
+/* ========================= */
+
+.controls{
+display:none;
+gap:10px;
+margin-top:14px;
+}
+
+.controls button{
+flex:1;
+height:56px;
+
+border:none;
+
+border-radius:12px;
+
+font-size:18px;
+font-weight:900;
+
+cursor:pointer;
+}
+
+.pause{
+background:#ffb300;
+}
+
+.stop{
+background:#ff3131;
+color:white;
+}
+
+/* ========================= */
+/* FINISH */
+/* ========================= */
+
+.finish{
+display:none;
+
+margin-top:14px;
+
+text-align:center;
+
+font-size:28px;
+font-weight:900;
+
+color:#ffd34c;
+
+animation:blink 1s infinite;
+}
+
+@keyframes blink{
+50%{
+opacity:.3;
+}
+}
+
+/* ========================= */
+/* MOBILE */
+/* ========================= */
+
+@media(max-width:900px){
+
+.header{
+grid-template-columns:1fr 1fr;
+}
+
+.panelBody{
+grid-template-columns:
+repeat(4,1fr);
+
+gap:8px;
+}
+
+.title{
+font-size:18px;
+}
+
+.status{
+font-size:11px;
+}
+
+.counter{
+font-size:24px;
+}
+
+.numberInput{
+font-size:18px;
+}
+
+.mainBtn{
+font-size:24px;
+height:70px;
+}
+
+.logo{
+font-size:20px;
+}
+
+.creator{
+font-size:13px;
+}
+
+.creator span:last-child{
+font-size:15px;
+}
+
+}
+
+/* ========================= */
+/* SCROLLBAR */
+/* ========================= */
+
+::-webkit-scrollbar{
+width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+background:#1ea7ff;
+border-radius:20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<div class="header">
+
+<div class="headBox">
+<div class="logo">
+MAFIA VOCER
+</div>
+</div>
+
+<div class="headBox">
+
+<div class="creator">
+
+<span>by</span>
+
+<span>Farchan el-Muchdlar</span>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ENGINE SEARCH -->
+
+<div class="panel">
+
+<div class="panelTop">
+
+<div class="left">
+
+<div class="bar"></div>
+
+<div class="title">
+ENGINE SEARCH
+</div>
+
+</div>
+
+<div class="status">
+STATUS:
+<span id="searchStatus">
+READY
+</span>
+</div>
+
+<div class="switchWrap">
+
+<h3>ON / OFF</h3>
+
+<div class="switch" id="searchSwitch">
+ON
+</div>
+
+</div>
+
+</div>
+
+<div class="panelBody">
+
+<div class="box">
+
+<label>Target</label>
+
+<div class="input">
+
+<input
+type="number"
+id="targetSearch"
+class="numberInput"
+value="20"
+min="1">
+
+<div class="arrowWrap">
+
+<button
+class="arrowBtn"
+onclick="changeValue('targetSearch',1)">
+▲
+</button>
+
+<button
+class="arrowBtn"
+onclick="changeValue('targetSearch',-1)">
+▼
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="box">
+
+<label>Min</label>
+
+<div class="input">
+
+<input
+type="number"
+id="minDelay"
+class="numberInput"
+value="10"
+min="1">
+
+<div class="arrowWrap">
+
+<button
+class="arrowBtn"
+onclick="changeValue('minDelay',1)">
+▲
+</button>
+
+<button
+class="arrowBtn"
+onclick="changeValue('minDelay',-1)">
+▼
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="box">
+
+<label>Max</label>
+
+<div class="input">
+
+<input
+type="number"
+id="maxDelay"
+class="numberInput"
+value="15"
+min="1">
+
+<div class="arrowWrap">
+
+<button
+class="arrowBtn"
+onclick="changeValue('maxDelay',1)">
+▲
+</button>
+
+<button
+class="arrowBtn"
+onclick="changeValue('maxDelay',-1)">
+▼
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="box">
+
+<label>Counter</label>
+
+<div class="counter">
+
+<span id="searchCounter">
+00
+</span>
+
+/&nbsp;<span id="searchTotal">
+20
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ENGINE READ -->
+
+<div class="panel">
+
+<div class="panelTop">
+
+<div class="left">
+
+<div class="bar"></div>
+
+<div class="title">
+ENGINE READ
+</div>
+
+</div>
+
+<div class="status">
+STATUS:
+<span id="readStatus">
+STANDBY
+</span>
+</div>
+
+<div class="switchWrap">
+
+<h3>ON / OFF</h3>
+
+<div class="switch" id="readSwitch">
+ON
+</div>
+
+</div>
+
+</div>
+
+<div class="panelBody">
+
+<div class="box">
+
+<label>Target</label>
+
+<div class="input">
+
+<input
+type="number"
+id="targetRead"
+class="numberInput"
+value="10"
+min="1">
+
+<div class="arrowWrap">
+
+<button
+class="arrowBtn"
+onclick="changeValue('targetRead',1)">
+▲
+</button>
+
+<button
+class="arrowBtn"
+onclick="changeValue('targetRead',-1)">
+▼
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="box">
+
+<label>Min</label>
+
+<div class="input">
+
+<input
+type="number"
+id="readMinDelay"
+class="numberInput"
+value="10"
+min="1">
+
+<div class="arrowWrap">
+
+<button
+class="arrowBtn"
+onclick="changeValue('readMinDelay',1)">
+▲
+</button>
+
+<button
+class="arrowBtn"
+onclick="changeValue('readMinDelay',-1)">
+▼
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="box">
+
+<label>Max</label>
+
+<div class="input">
+
+<input
+type="number"
+id="readMaxDelay"
+class="numberInput"
+value="15"
+min="1">
+
+<div class="arrowWrap">
+
+<button
+class="arrowBtn"
+onclick="changeValue('readMaxDelay',1)">
+▲
+</button>
+
+<button
+class="arrowBtn"
+onclick="changeValue('readMaxDelay',-1)">
+▼
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="box">
+
+<label>Counter</label>
+
+<div class="counter">
+
+<span id="readCounter">
+00
+</span>
+
+/&nbsp;<span id="readTotal">
+10
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<button class="mainBtn" id="startBtn">
+
+🚀 Mangkat!..
+
+</button>
+
+<div class="controls" id="controls">
+
+<button class="pause" id="pauseBtn">
+Jeda
+</button>
+
+<button class="stop" id="stopBtn">
+Stop
+</button>
+
+</div>
+
+<div class="finish" id="finishBox">
+
+✅ SELESAI
+
+</div>
+
+<script>
+
+/* ========================= */
+/* CHANGE VALUE */
+/* ========================= */
+
+function changeValue(id,amount){
+
+const input =
+document.getElementById(id);
+
+let value =
+Number(input.value);
+
+value += amount;
+
+if(value < 1){
+value = 1;
+}
+
+input.value = value;
+
+updateTotals();
+
+}
+
+/* ========================= */
+/* DATA */
+/* ========================= */
+
+const searchKeywords = [
+
+"Rumah bordir di China",
+"Rokok ilegal di Madura",
+"Makanan khas Jember",
+"Minuman beralkohol dari Afrika"
+
+];
+
+const readLinks = [
+
+"https://www.msn.com/en-us/lifestyle/lifestyle-buzz/6-books-that-people-say-genuinely-changed-their-lives/ss-AA21hkcu?ocid=sapphireappshare",
+
+"https://www.msn.com/en-us/health/other/new-study-finds-a-common-supplement-ingredient-for-cognitive-enhancement-may-lead-to-a-shorter-lifespan/ar-AA23mFoF?ocid=sapphireappshare",
+
+"https://www.msn.com/en-us/news/technology/i-tested-claude-code-codex-lovable-and-replit-side-by-side-and-only-one-felt-ready-for-real-work/ar-AA21TnWB?ocid=sapphireappshare"
+
+];
+
+/* ========================= */
+/* ELEMENT */
+/* ========================= */
+
+const targetSearch =
+document.getElementById("targetSearch");
+
+const targetRead =
+document.getElementById("targetRead");
+
+const searchTotal =
+document.getElementById("searchTotal");
+
+const readTotal =
+document.getElementById("readTotal");
+
+const searchCounter =
+document.getElementById("searchCounter");
+
+const readCounter =
+document.getElementById("readCounter");
+
+const searchStatus =
+document.getElementById("searchStatus");
+
+const readStatus =
+document.getElementById("readStatus");
+
+const startBtn =
+document.getElementById("startBtn");
+
+const controls =
+document.getElementById("controls");
+
+const pauseBtn =
+document.getElementById("pauseBtn");
+
+const stopBtn =
+document.getElementById("stopBtn");
+
+const finishBox =
+document.getElementById("finishBox");
+
+const minDelay =
+document.getElementById("minDelay");
+
+const maxDelay =
+document.getElementById("maxDelay");
+
+const readMinDelay =
+document.getElementById("readMinDelay");
+
+const readMaxDelay =
+document.getElementById("readMaxDelay");
+
+const searchSwitch =
+document.getElementById("searchSwitch");
+
+const readSwitch =
+document.getElementById("readSwitch");
+
+/* ========================= */
+/* SWITCH */
+/* ========================= */
+
+let searchEnabled = true;
+let readEnabled = true;
+
+searchSwitch.onclick = ()=>{
+
+searchEnabled = !searchEnabled;
+
+searchSwitch.classList.toggle("off");
+
+searchSwitch.innerText =
+searchEnabled ? "ON" : "OFF";
+
+};
+
+readSwitch.onclick = ()=>{
+
+readEnabled = !readEnabled;
+
+readSwitch.classList.toggle("off");
+
+readSwitch.innerText =
+readEnabled ? "ON" : "OFF";
+
+};
+
+/* ========================= */
+/* STATE */
+/* ========================= */
+
+let running = false;
+let paused = false;
+let stopped = false;
+
+let searchCount = 0;
+let readCount = 0;
+
+let activeTab = null;
+
+/* ========================= */
+/* UPDATE TOTAL */
+/* ========================= */
+
+function updateTotals(){
+
+searchTotal.innerText =
+String(targetSearch.value)
+.padStart(2,"0");
+
+readTotal.innerText =
+String(targetRead.value)
+.padStart(2,"0");
+
+}
+
+updateTotals();
+
+targetSearch.addEventListener(
+"input",
+updateTotals
+);
+
+targetRead.addEventListener(
+"input",
+updateTotals
+);
+
+/* ========================= */
+/* UPDATE COUNTER */
+/* ========================= */
+
+function updateCounter(){
+
+searchCounter.innerText =
+String(searchCount).padStart(2,"0");
+
+readCounter.innerText =
+String(readCount).padStart(2,"0");
+
+}
+
+/* ========================= */
+/* WAIT */
+/* ========================= */
+
+function wait(ms){
+
+return new Promise(resolve=>{
+
+setTimeout(resolve,ms);
+
+});
+
+}
+
+/* ========================= */
+/* SOUND */
+/* ========================= */
+
+function beep(){
+
+const ctx =
+new(window.AudioContext ||
+window.webkitAudioContext)();
+
+const osc =
+ctx.createOscillator();
+
+osc.type = "sine";
+
+osc.frequency.value = 260;
+
+osc.connect(ctx.destination);
+
+osc.start();
+
+setTimeout(()=>{
+
+osc.stop();
+
+},1500);
+
+}
+
+/* ========================= */
+/* OPEN TAB */
+/* ========================= */
+
+async function openSingleTab(url){
+
+if(activeTab && !activeTab.closed){
+
+activeTab.close();
+
+activeTab = null;
+
+await wait(500);
+
+}
+
+activeTab =
+window.open(url,"_blank");
+
+if(activeTab){
+
+activeTab.focus();
+
+}
+
+}
+
+/* ========================= */
+/* MAIN PROCESS */
+/* ========================= */
+
+async function startProcess(){
+
+if(running) return;
+
+running = true;
+
+paused = false;
+
+stopped = false;
+
+searchCount = 0;
+readCount = 0;
+
+updateCounter();
+
+finishBox.style.display =
+"none";
+
+startBtn.style.display =
+"none";
+
+controls.style.display =
+"flex";
+
+pauseBtn.innerText = "Jeda";
+
+/* SEARCH */
+
+if(searchEnabled){
+
+searchStatus.innerText =
+"RUNNING";
+
+for(
+let i=0;
+i<Number(targetSearch.value);
+i++
+){
+
+if(stopped) break;
+
+while(paused){
+
+await wait(300);
+
+}
+
+const keyword =
+searchKeywords[
+i % searchKeywords.length
+];
+
+const searchUrl =
+"https://www.bing.com/search?q=" +
+encodeURIComponent(keyword);
+
+await openSingleTab(searchUrl);
+
+searchCount++;
+
+updateCounter();
+
+const min =
+Number(minDelay.value) * 1000;
+
+const max =
+Number(maxDelay.value) * 1000;
+
+await wait(
+Math.random() * (max - min) + min
+);
+
+}
+
+searchStatus.innerText =
+stopped ? "READY" : "DONE";
+
+}else{
+
+searchStatus.innerText =
+"OFF";
+
+}
+
+/* READ */
+
+if(readEnabled && !stopped){
+
+readStatus.innerText =
+"READING";
+
+for(
+let i=0;
+i<Number(targetRead.value);
+i++
+){
+
+if(stopped) break;
+
+while(paused){
+
+await wait(300);
+
+}
+
+const link =
+readLinks[
+i % readLinks.length
+];
+
+await openSingleTab(link);
+
+readCount++;
+
+updateCounter();
+
+const min =
+Number(readMinDelay.value) * 1000;
+
+const max =
+Number(readMaxDelay.value) * 1000;
+
+await wait(
+Math.random() * (max - min) + min
+);
+
+}
+
+readStatus.innerText =
+stopped ? "STANDBY" : "SELESAI";
+
+}else{
+
+if(!stopped){
+
+readStatus.innerText =
+"OFF";
+
+}
+
+}
+
+/* CLOSE LAST TAB */
+
+if(activeTab && !activeTab.closed){
+
+activeTab.close();
+
+activeTab = null;
+
+}
+
+/* FINISH */
+
+controls.style.display =
+"none";
+
+startBtn.style.display =
+"block";
+
+if(!stopped){
+
+finishBox.style.display =
+"block";
+
+beep();
+
+}
+
+running = false;
+
+}
+
+/* ========================= */
+/* START */
+/* ========================= */
+
+startBtn.onclick = ()=>{
+
+startProcess();
+
+};
+
+/* ========================= */
+/* PAUSE TOGGLE */
+/* ========================= */
+
+pauseBtn.onclick = ()=>{
+
+paused = !paused;
+
+if(paused){
+
+pauseBtn.innerText = "Lanjut";
+
+searchStatus.innerText = "JEDA";
+readStatus.innerText = "JEDA";
+
+}else{
+
+pauseBtn.innerText = "Jeda";
+
+if(searchEnabled){
+searchStatus.innerText = "RUNNING";
+}
+
+if(readEnabled){
+readStatus.innerText = "READING";
+}
+
+}
+
+};
+
+/* ========================= */
+/* STOP */
+/* ========================= */
+
+stopBtn.onclick = ()=>{
+
+stopped = true;
+
+running = false;
+
+paused = false;
+
+pauseBtn.innerText = "Jeda";
+
+searchCount = 0;
+readCount = 0;
+
+updateCounter();
+
+if(activeTab && !activeTab.closed){
+
+activeTab.close();
+
+activeTab = null;
+
+}
+
+searchStatus.innerText =
+"READY";
+
+readStatus.innerText =
+"STANDBY";
+
+controls.style.display =
+"none";
+
+startBtn.style.display =
+"block";
+
+finishBox.style.display =
+"none";
+
+};
+
+</script>
+
+</body>
+</html>
