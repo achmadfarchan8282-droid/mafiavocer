@@ -957,14 +957,19 @@ updateTotals();
 /* DATA */
 /* ========================= */
 
-const searchKeywords = [
+let searchKeywords = [];
 
-"Rumah bordir di China",
-"Rokok ilegal di Madura",
-"Makanan khas Jember",
-"Minuman beralkohol dari Afrika"
+fetch("keywords.txt")
+.then(res => res.text())
+.then(data => {
 
-];
+searchKeywords =
+data
+.trim()
+.split("\n")
+.filter(keyword => keyword.trim() !== "");
+
+});
 
 let readLinks = [];
 
