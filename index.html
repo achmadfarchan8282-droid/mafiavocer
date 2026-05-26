@@ -1253,7 +1253,10 @@ await wait(300);
 
 const keyword =
 searchKeywords[
-i % searchKeywords.length
+Math.floor(
+Math.random() *
+searchKeywords.length
+)
 ];
 
 const searchUrl =
@@ -1311,9 +1314,11 @@ await wait(300);
 
 const link =
 readLinks[
-i % readLinks.length
+Math.floor(
+Math.random() *
+readLinks.length
+)
 ];
-
 await openSingleTab(link);
 
 readCount++;
