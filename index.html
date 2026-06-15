@@ -160,27 +160,9 @@ color:#ffd34c;
 /* ========================= */
 
 .status{
-position:absolute;
-
-left:50%;
-top:90%;
-
-transform:
-translate(-50%,-50%);
-
 font-size:14px;
 font-weight:900;
-
-white-space:nowrap;
-
-display:flex;
-align-items:center;
-justify-content:center;
-}
-
-.status span{
 color:#ffd34c;
-margin-left:4px;
 }
 
 /* ========================= */
@@ -494,25 +476,6 @@ opacity:.3;
 }
 
 /* ========================= */
-/* FRAME CONTAINER */
-/* ========================= */
-.frame-container {
-  margin-top: 15px;
-  border-radius: 12px;
-  border: 2px solid #39dfff;
-  overflow: hidden;
-  background: #000814;
-  box-shadow: 0 0 15px rgba(0,191,255,.25);
-  display: none;
-}
-
-#bingFrame {
-  width: 100%;
-  height: 400px;
-  border: none;
-}
-
-/* ========================= */
 /* MOBILE */
 /* ========================= */
 
@@ -562,10 +525,6 @@ font-size:13px;
 font-size:15px;
 }
 
-#bingFrame {
-  height: 300px;
-}
-
 }
 
 /* ========================= */
@@ -587,660 +546,207 @@ border-radius:20px;
 <body>
 
 <!-- HEADER -->
-
 <div class="header">
-
 <div class="headBox">
-<div class="logo">
-MAFIA VOCER
+<div class="logo">MAFIA VOCER</div>
 </div>
-</div>
-
 <div class="headBox">
-
 <div class="creator">
-
 <span>by</span>
-
 <span>Farchan el-Muchdlar</span>
-
 </div>
-
 </div>
-
 </div>
 
 <!-- ENGINE SEARCH -->
-
 <div class="panel">
-
 <div class="panelTop">
-
 <div class="left">
-
 <div class="bar"></div>
-
-<div class="title">
-ENGINE SEARCH
+<div class="title">ENGINE SEARCH</div>
 </div>
-
-</div>
-
-<div class="status">
-STATUS:
-<span id="searchStatus">
-READY
-</span>
-</div>
-
+<div class="status">STATUS: <span id="searchStatus">READY</span></div>
 <div class="switchWrap">
-
 <h3>ON / OFF</h3>
-
-<div class="switch" id="searchSwitch">
-ON
+<div class="switch" id="searchSwitch">ON</div>
 </div>
-
-</div>
-
 </div>
 
 <div class="panelBody">
-
 <div class="box">
-
 <label>Target</label>
-
 <div class="input">
-
-<input
-type="number"
-id="targetSearch"
-class="numberInput"
-value="20"
-min="1">
-
+<input type="number" id="targetSearch" class="numberInput" value="20" min="1">
 <div class="arrowWrap">
-
-<button
-class="arrowBtn"
-onclick="changeValue('targetSearch',1)">
-▲
-</button>
-
-<button
-class="arrowBtn"
-onclick="changeValue('targetSearch',-1)">
-▼
-</button>
-
+<button class="arrowBtn" onclick="changeValue('targetSearch',1)">▲</button>
+<button class="arrowBtn" onclick="changeValue('targetSearch',-1)">▼</button>
 </div>
-
 </div>
-
 </div>
 
 <div class="box">
-
 <label>Min</label>
-
 <div class="input">
-
-<input
-type="number"
-id="minDelay"
-class="numberInput"
-value="15"
-min="1">
-
+<input type="number" id="minDelay" class="numberInput" value="15" min="1">
 <div class="arrowWrap">
-
-<button
-class="arrowBtn"
-onclick="changeValue('minDelay',1)">
-▲
-</button>
-
-<button
-class="arrowBtn"
-onclick="changeValue('minDelay',-1)">
-▼
-</button>
-
+<button class="arrowBtn" onclick="changeValue('minDelay',1)">▲</button>
+<button class="arrowBtn" onclick="changeValue('minDelay',-1)">▼</button>
 </div>
-
 </div>
-
 </div>
 
 <div class="box">
-
 <label>Max</label>
-
 <div class="input">
-
-<input
-type="number"
-id="maxDelay"
-class="numberInput"
-value="30"
-min="1">
-
+<input type="number" id="maxDelay" class="numberInput" value="30" min="1">
 <div class="arrowWrap">
-
-<button
-class="arrowBtn"
-onclick="changeValue('maxDelay',1)">
-▲
-</button>
-
-<button
-class="arrowBtn"
-onclick="changeValue('maxDelay',-1)">
-▼
-</button>
-
+<button class="arrowBtn" onclick="changeValue('maxDelay',1)">▲</button>
+<button class="arrowBtn" onclick="changeValue('maxDelay',-1)">▼</button>
 </div>
-
 </div>
-
 </div>
 
 <div class="box">
-
 <label>Counter</label>
-
 <div class="counter">
-
-<span id="searchCounter">
-00
-</span>
-
-/&nbsp;<span id="searchTotal">
-20
-</span>
-
+<span id="searchCounter">00</span> / <span id="searchTotal">20</span>
+</div>
+</div>
+</div>
 </div>
 
-</div>
-
-</div>
-
-</div>
-
-<!-- ENGINE READ -->
-
-<div class="panel">
-
-<div class="panelTop">
-
-<div class="left">
-
-<div class="bar"></div>
-
-<div class="title">
-ENGINE READ
-</div>
-
-</div>
-
-<div class="status">
-STATUS:
-<span id="readStatus">
-STANDBY
-</span>
-</div>
-
-<div class="switchWrap">
-
-<h3>ON / OFF</h3>
-
-<div class="switch" id="readSwitch">
-ON
-</div>
-
-</div>
-
-</div>
-
-<div class="panelBody">
-
-<div class="box">
-
-<label>Target</label>
-
-<div class="input">
-
-<input
-type="number"
-id="targetRead"
-class="numberInput"
-value="10"
-min="1">
-
-<div class="arrowWrap">
-
-<button
-class="arrowBtn"
-onclick="changeValue('targetRead',1)">
-▲
-</button>
-
-<button
-class="arrowBtn"
-onclick="changeValue('targetRead',-1)">
-▼
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="box">
-
-<label>Min</label>
-
-<div class="input">
-
-<input
-type="number"
-id="readMinDelay"
-class="numberInput"
-value="15"
-min="1">
-
-<div class="arrowWrap">
-
-<button
-class="arrowBtn"
-onclick="changeValue('readMinDelay',1)">
-▲
-</button>
-
-<button
-class="arrowBtn"
-onclick="changeValue('readMinDelay',-1)">
-▼
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="box">
-
-<label>Max</label>
-
-<div class="input">
-
-<input
-type="number"
-id="readMaxDelay"
-class="numberInput"
-value="30"
-min="1">
-
-<div class="arrowWrap">
-
-<button
-class="arrowBtn"
-onclick="changeValue('readMaxDelay',1)">
-▲
-</button>
-
-<button
-class="arrowBtn"
-onclick="changeValue('readMaxDelay',-1)">
-▼
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="box">
-
-<label>Counter</label>
-
-<div class="counter">
-
-<span id="readCounter">
-00
-</span>
-
-/&nbsp;<span id="readTotal">
-10
-</span>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- Area tampilan halaman -->
-<div class="frame-container" id="frameContainer">
-  <iframe id="bingFrame" sandbox="allow-same-origin allow-scripts allow-forms allow-popups"></iframe>
-</div>
-
-<button class="mainBtn" id="startBtn">
-
-🚀 Mangkat!..
-
-</button>
+<button class="mainBtn" id="startBtn">🚀 Mangkat!..</button>
 
 <div class="controls" id="controls">
-
-<button class="pause" id="pauseBtn">
-Jeda
-</button>
-
-<button class="stop" id="stopBtn">
-Stop
-</button>
-
+<button class="pause" id="pauseBtn">Jeda</button>
+<button class="stop" id="stopBtn">Stop</button>
 </div>
 
-<div class="finish" id="finishBox">
-
-✅ SELESAI
-
-</div>
+<div class="finish" id="finishBox">✅ SELESAI</div>
 
 <script>
 
 /* ========================= */
 /* CHANGE VALUE */
 /* ========================= */
-
 function changeValue(id,amount){
-
-const input =
-document.getElementById(id);
-
-let value =
-Number(input.value);
-
+const input = document.getElementById(id);
+let value = Number(input.value);
 value += amount;
-
-if(value < 1){
-value = 1;
-}
-
+if(value < 1) value = 1;
 input.value = value;
-
 updateTotals();
-
 }
 
 /* ========================= */
-/* DATA - Perbaikan baca file */
+/* DATA KATA KUNCI */
 /* ========================= */
-
 let searchKeywords = [];
-let readLinks = [];
 
 window.addEventListener('load', function() {
-  // Baca kata kunci
-  fetch("keywords.txt")
-    .then(res => {
-      if (!res.ok) throw new Error("File keywords.txt tidak ditemukan");
-      return res.text();
-    })
-    .then(data => {
-      searchKeywords = data.trim()
-        .split("\n")
-        .filter(keyword => keyword.trim() !== "")
-        .map(k => k.trim());
-      console.log("Kata kunci siap:", searchKeywords.length);
-    })
-    .catch(err => console.error("Error baca keywords:", err));
-
-  // Baca link
-  fetch("links.txt")
-    .then(res => {
-      if (!res.ok) throw new Error("File links.txt tidak ditemukan");
-      return res.text();
-    })
-    .then(data => {
-      readLinks = data.trim()
-        .split("\n")
-        .filter(link => link.trim() !== "")
-        .map(l => l.trim());
-      console.log("Link siap:", readLinks.length);
-    })
-    .catch(err => console.error("Error baca links:", err));
+fetch("keywords.txt")
+.then(res => {
+if (!res.ok) throw new Error("File keywords.txt tidak ditemukan");
+return res.text();
+})
+.then(data => {
+searchKeywords = data.trim().split("\n")
+.filter(keyword => keyword.trim() !== "")
+.map(k => k.trim());
+console.log("Jumlah kata kunci:", searchKeywords.length);
+})
+.catch(err => alert("Error: Pastikan file keywords.txt ada di folder yang sama!"));
 });
 
 /* ========================= */
 /* ELEMENT */
 /* ========================= */
+const targetSearch = document.getElementById("targetSearch");
+const searchTotal = document.getElementById("searchTotal");
+const searchCounter = document.getElementById("searchCounter");
+const searchStatus = document.getElementById("searchStatus");
+const startBtn = document.getElementById("startBtn");
+const controls = document.getElementById("controls");
+const pauseBtn = document.getElementById("pauseBtn");
+const stopBtn = document.getElementById("stopBtn");
+const finishBox = document.getElementById("finishBox");
+const minDelay = document.getElementById("minDelay");
+const maxDelay = document.getElementById("maxDelay");
+const searchSwitch = document.getElementById("searchSwitch");
 
-const targetSearch =
-document.getElementById("targetSearch");
-
-const targetRead =
-document.getElementById("targetRead");
-
-const searchTotal =
-document.getElementById("searchTotal");
-
-const readTotal =
-document.getElementById("readTotal");
-
-const searchCounter =
-document.getElementById("searchCounter");
-
-const readCounter =
-document.getElementById("readCounter");
-
-const searchStatus =
-document.getElementById("searchStatus");
-
-const readStatus =
-document.getElementById("readStatus");
-
-const startBtn =
-document.getElementById("startBtn");
-
-const controls =
-document.getElementById("controls");
-
-const pauseBtn =
-document.getElementById("pauseBtn");
-
-const stopBtn =
-document.getElementById("stopBtn");
-
-const finishBox =
-document.getElementById("finishBox");
-
-const minDelay =
-document.getElementById("minDelay");
-
-const maxDelay =
-document.getElementById("maxDelay");
-
-const readMinDelay =
-document.getElementById("readMinDelay");
-
-const readMaxDelay =
-document.getElementById("readMaxDelay");
-
-const searchSwitch =
-document.getElementById("searchSwitch");
-
-const readSwitch =
-document.getElementById("readSwitch");
-
-const frameContainer = document.getElementById("frameContainer");
-const bingFrame = document.getElementById("bingFrame");
+let searchEnabled = true;
+let running = false;
+let paused = false;
+let stopped = false;
+let searchCount = 0;
 
 /* ========================= */
 /* SWITCH */
 /* ========================= */
-
-let searchEnabled = true;
-let readEnabled = true;
-
 searchSwitch.onclick = ()=>{
-
 searchEnabled = !searchEnabled;
-
 searchSwitch.classList.toggle("off");
-
-searchSwitch.innerText =
-searchEnabled ? "ON" : "OFF";
-
+searchSwitch.innerText = searchEnabled ? "ON" : "OFF";
 };
-
-readSwitch.onclick = ()=>{
-
-readEnabled = !readEnabled;
-
-readSwitch.classList.toggle("off");
-
-readSwitch.innerText =
-readEnabled ? "ON" : "OFF";
-
-};
-
-/* ========================= */
-/* STATE */
-/* ========================= */
-
-let running = false;
-let paused = false;
-let stopped = false;
-
-let searchCount = 0;
-let readCount = 0;
 
 /* ========================= */
 /* UPDATE TOTAL */
 /* ========================= */
-
 function updateTotals(){
-
-searchTotal.innerText =
-String(targetSearch.value)
-.padStart(2,"0");
-
-readTotal.innerText =
-String(targetRead.value)
-.padStart(2,"0");
-
+searchTotal.innerText = String(targetSearch.value).padStart(2,"0");
 }
-
 updateTotals();
-
-targetSearch.addEventListener(
-"input",
-updateTotals
-);
-
-targetRead.addEventListener(
-"input",
-updateTotals
-);
+targetSearch.addEventListener("input", updateTotals);
 
 /* ========================= */
 /* UPDATE COUNTER */
 /* ========================= */
-
 function updateCounter(){
-
-searchCounter.innerText =
-String(searchCount).padStart(2,"0");
-
-readCounter.innerText =
-String(readCount).padStart(2,"0");
-
+searchCounter.innerText = String(searchCount).padStart(2,"0");
 }
 
 /* ========================= */
 /* WAIT */
 /* ========================= */
-
 function wait(ms){
-
-return new Promise(resolve=>{
-
-setTimeout(resolve,ms);
-
-});
-
+return new Promise(resolve=>{setTimeout(resolve,ms);});
 }
 
 /* ========================= */
 /* SOUND */
 /* ========================= */
-
 function beep(){
-
-const ctx =
-new(window.AudioContext ||
-window.webkitAudioContext)();
-
-const osc =
-ctx.createOscillator();
-
+const ctx = new(window.AudioContext || window.webkitAudioContext)();
+const osc = ctx.createOscillator();
 osc.type = "sine";
-
 osc.frequency.value = 260;
-
 osc.connect(ctx.destination);
-
 osc.start();
-
-setTimeout(()=>{
-
-osc.stop();
-
-},1500);
-
+setTimeout(()=>{osc.stop();},1500);
 }
 
 /* ========================= */
-/* BUKA DI HALAMAN SAMA - TANPA TAB BARU */
+/* BUKA TAB BARU - TIDAK DITUTUP */
 /* ========================= */
-async function loadPage(url) {
-  frameContainer.style.display = "block";
-  bingFrame.src = url;
-  
-  // Tunggu halaman dimuat
-  await wait(Math.random() * 2000 + 2500);
+function openNewTab(url) {
+window.open(url, "_blank");
 }
 
 /* ========================= */
 /* MAIN PROCESS */
 /* ========================= */
-
 async function startProcess(){
-
 if(running) return;
 
-// Cek apakah data sudah siap
-if ((searchEnabled && searchKeywords.length === 0) || (readEnabled && readLinks.length === 0)) {
-  alert("Data kata kunci atau link belum terbaca! Tunggu sebentar atau cek file keywords.txt / links.txt");
-  return;
+if(searchKeywords.length === 0){
+alert("Data kata kunci belum siap! Cek file keywords.txt");
+return;
 }
 
 running = true;
 paused = false;
 stopped = false;
-
 searchCount = 0;
-readCount = 0;
-
 updateCounter();
 
 finishBox.style.display = "none";
@@ -1248,120 +754,69 @@ startBtn.style.display = "none";
 controls.style.display = "flex";
 pauseBtn.innerText = "Jeda";
 
-/* SEARCH */
 if(searchEnabled){
-  searchStatus.innerText = "RUNNING";
+searchStatus.innerText = "RUNNING";
 
-  for(let i=0; i<Number(targetSearch.value); i++){
-    if(stopped) break;
-    while(paused) await wait(300);
+for(let i=0; i<Number(targetSearch.value); i++){
+if(stopped) break;
+while(paused) await wait(300);
 
-    const keyword = searchKeywords[Math.floor(Math.random() * searchKeywords.length)];
-    const searchUrl = "https://www.bing.com/search?q=" + encodeURIComponent(keyword);
-    
-    await loadPage(searchUrl);
-    
-    searchCount++;
-    updateCounter();
+const keyword = searchKeywords[Math.floor(Math.random() * searchKeywords.length)];
+const searchUrl = "https://www.bing.com/search?q=" + encodeURIComponent(keyword);
 
-    const min = Number(minDelay.value) * 1000;
-    const max = Number(maxDelay.value) * 1000;
-    await wait(Math.random() * (max - min) + min);
-  }
+openNewTab(searchUrl);
 
-  searchStatus.innerText = stopped ? "READY" : "DONE";
-}else{
-  searchStatus.innerText = "OFF";
+searchCount++;
+updateCounter();
+
+const min = Number(minDelay.value) * 1000;
+const max = Number(maxDelay.value) * 1000;
+await wait(Math.random() * (max - min) + min);
 }
 
-/* READ */
-if(readEnabled && !stopped){
-  readStatus.innerText = "READING";
-
-  for(let i=0; i<Number(targetRead.value); i++){
-    if(stopped) break;
-    while(paused) await wait(300);
-
-    const link = readLinks[Math.floor(Math.random() * readLinks.length)];
-    await loadPage(link);
-    
-    readCount++;
-    updateCounter();
-
-    const min = Number(readMinDelay.value) * 1000;
-    const max = Number(readMaxDelay.value) * 1000;
-    await wait(Math.random() * (max - min) + min);
-  }
-
-  readStatus.innerText = stopped ? "STANDBY" : "SELESAI";
+searchStatus.innerText = stopped ? "READY" : "SELESAI";
 }else{
-  if(!stopped) readStatus.innerText = "OFF";
+searchStatus.innerText = "OFF";
 }
 
-/* SELESAI */
-frameContainer.style.display = "none";
 controls.style.display = "none";
 startBtn.style.display = "block";
 
 if(!stopped){
-  finishBox.style.display = "block";
-  beep();
+finishBox.style.display = "block";
+beep();
 }
 
 running = false;
 }
 
 /* ========================= */
-/* START */
+/* EVENT */
 /* ========================= */
-
-startBtn.onclick = ()=>{
-startProcess();
-};
-
-/* ========================= */
-/* PAUSE TOGGLE */
-/* ========================= */
+startBtn.onclick = ()=>{startProcess();};
 
 pauseBtn.onclick = ()=>{
 paused = !paused;
-
 if(paused){
 pauseBtn.innerText = "Lanjut";
 searchStatus.innerText = "JEDA";
-readStatus.innerText = "JEDA";
 }else{
 pauseBtn.innerText = "Jeda";
-if(searchEnabled) searchStatus.innerText = "RUNNING";
-if(readEnabled) readStatus.innerText = "READING";
+searchStatus.innerText = "RUNNING";
 }
-
 };
-
-/* ========================= */
-/* STOP */
-/* ========================= */
 
 stopBtn.onclick = ()=>{
 stopped = true;
 running = false;
 paused = false;
 pauseBtn.innerText = "Jeda";
-
 searchCount = 0;
-readCount = 0;
 updateCounter();
-
-frameContainer.style.display = "none";
-bingFrame.src = "about:blank";
-
 searchStatus.innerText = "READY";
-readStatus.innerText = "STANDBY";
-
 controls.style.display = "none";
 startBtn.style.display = "block";
 finishBox.style.display = "none";
-
 };
 
 </script>
