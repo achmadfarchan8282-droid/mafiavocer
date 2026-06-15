@@ -494,6 +494,25 @@ opacity:.3;
 }
 
 /* ========================= */
+/* FRAME CONTAINER */
+/* ========================= */
+.frame-container {
+  margin-top: 15px;
+  border-radius: 12px;
+  border: 2px solid #39dfff;
+  overflow: hidden;
+  background: #000814;
+  box-shadow: 0 0 15px rgba(0,191,255,.25);
+  display: none;
+}
+
+#bingFrame {
+  width: 100%;
+  height: 400px;
+  border: none;
+}
+
+/* ========================= */
 /* MOBILE */
 /* ========================= */
 
@@ -541,6 +560,10 @@ font-size:13px;
 
 .creator span:last-child{
 font-size:15px;
+}
+
+#bingFrame {
+  height: 300px;
 }
 
 }
@@ -667,7 +690,7 @@ onclick="changeValue('targetSearch',-1)">
 type="number"
 id="minDelay"
 class="numberInput"
-value="10"
+value="15"
 min="1">
 
 <div class="arrowWrap">
@@ -700,7 +723,7 @@ onclick="changeValue('minDelay',-1)">
 type="number"
 id="maxDelay"
 class="numberInput"
-value="15"
+value="30"
 min="1">
 
 <div class="arrowWrap">
@@ -825,7 +848,7 @@ onclick="changeValue('targetRead',-1)">
 type="number"
 id="readMinDelay"
 class="numberInput"
-value="10"
+value="15"
 min="1">
 
 <div class="arrowWrap">
@@ -858,7 +881,7 @@ onclick="changeValue('readMinDelay',-1)">
 type="number"
 id="readMaxDelay"
 class="numberInput"
-value="15"
+value="30"
 min="1">
 
 <div class="arrowWrap">
@@ -901,6 +924,11 @@ onclick="changeValue('readMaxDelay',-1)">
 
 </div>
 
+</div>
+
+<!-- Area tampilan halaman -->
+<div class="frame-container" id="frameContainer">
+  <iframe id="bingFrame" sandbox="allow-same-origin allow-scripts allow-forms allow-popups"></iframe>
 </div>
 
 <button class="mainBtn" id="startBtn">
@@ -954,35 +982,42 @@ updateTotals();
 }
 
 /* ========================= */
-/* DATA */
+/* DATA - Perbaikan baca file */
 /* ========================= */
 
 let searchKeywords = [];
-
-fetch("keywords.txt")
-.then(res => res.text())
-.then(data => {
-
-searchKeywords =
-data
-.trim()
-.split("\n")
-.filter(keyword => keyword.trim() !== "");
-
-});
-
 let readLinks = [];
 
-fetch("links.txt")
-.then(res => res.text())
-.then(data => {
+window.addEventListener('load', function() {
+  // Baca kata kunci
+  fetch("keywords.txt")
+    .then(res => {
+      if (!res.ok) throw new Error("File keywords.txt tidak ditemukan");
+      return res.text();
+    })
+    .then(data => {
+      searchKeywords = data.trim()
+        .split("\n")
+        .filter(keyword => keyword.trim() !== "")
+        .map(k => k.trim());
+      console.log("Kata kunci siap:", searchKeywords.length);
+    })
+    .catch(err => console.error("Error baca keywords:", err));
 
-readLinks =
-data
-.trim()
-.split("\n")
-.filter(link => link.trim() !== "");
-
+  // Baca link
+  fetch("links.txt")
+    .then(res => {
+      if (!res.ok) throw new Error("File links.txt tidak ditemukan");
+      return res.text();
+    })
+    .then(data => {
+      readLinks = data.trim()
+        .split("\n")
+        .filter(link => link.trim() !== "")
+        .map(l => l.trim());
+      console.log("Link siap:", readLinks.length);
+    })
+    .catch(err => console.error("Error baca links:", err));
 });
 
 /* ========================= */
@@ -1046,6 +1081,9 @@ document.getElementById("searchSwitch");
 const readSwitch =
 document.getElementById("readSwitch");
 
+const frameContainer = document.getElementById("frameContainer");
+const bingFrame = document.getElementById("bingFrame");
+
 /* ========================= */
 /* SWITCH */
 /* ========================= */
@@ -1085,8 +1123,6 @@ let stopped = false;
 
 let searchCount = 0;
 let readCount = 0;
-
-let activeTab = null;
 
 /* ========================= */
 /* UPDATE TOTAL */
@@ -1174,30 +1210,14 @@ osc.stop();
 }
 
 /* ========================= */
-/* OPEN TAB */
+/* BUKA DI HALAMAN SAMA - TANPA TAB BARU */
 /* ========================= */
-
-async function openSingleTab(url){
-
-if(activeTab && !activeTab.closed){
-
-activeTab.close();
-
-activeTab = null;
-
-await wait(500);
-
-}
-
-activeTab =
-window.open(url,"_blank");
-
-if(activeTab){
-
-activeTab.focus();
-
-}
-
+async function loadPage(url) {
+  frameContainer.style.display = "block";
+  bingFrame.src = url;
+  
+  // Tunggu halaman dimuat
+  await wait(Math.random() * 2000 + 2500);
 }
 
 /* ========================= */
@@ -1208,10 +1228,14 @@ async function startProcess(){
 
 if(running) return;
 
+// Cek apakah data sudah siap
+if ((searchEnabled && searchKeywords.length === 0) || (readEnabled && readLinks.length === 0)) {
+  alert("Data kata kunci atau link belum terbaca! Tunggu sebentar atau cek file keywords.txt / links.txt");
+  return;
+}
+
 running = true;
-
 paused = false;
-
 stopped = false;
 
 searchCount = 0;
@@ -1219,167 +1243,72 @@ readCount = 0;
 
 updateCounter();
 
-finishBox.style.display =
-"none";
-
-startBtn.style.display =
-"none";
-
-controls.style.display =
-"flex";
-
+finishBox.style.display = "none";
+startBtn.style.display = "none";
+controls.style.display = "flex";
 pauseBtn.innerText = "Jeda";
 
 /* SEARCH */
-
 if(searchEnabled){
+  searchStatus.innerText = "RUNNING";
 
-searchStatus.innerText =
-"RUNNING";
+  for(let i=0; i<Number(targetSearch.value); i++){
+    if(stopped) break;
+    while(paused) await wait(300);
 
-for(
-let i=0;
-i<Number(targetSearch.value);
-i++
-){
+    const keyword = searchKeywords[Math.floor(Math.random() * searchKeywords.length)];
+    const searchUrl = "https://www.bing.com/search?q=" + encodeURIComponent(keyword);
+    
+    await loadPage(searchUrl);
+    
+    searchCount++;
+    updateCounter();
 
-if(stopped) break;
+    const min = Number(minDelay.value) * 1000;
+    const max = Number(maxDelay.value) * 1000;
+    await wait(Math.random() * (max - min) + min);
+  }
 
-while(paused){
-
-await wait(300);
-
-}
-
-const keyword =
-searchKeywords[
-Math.floor(
-Math.random() *
-searchKeywords.length
-)
-];
-
-const searchUrl =
-"https://www.bing.com/search?q=" +
-encodeURIComponent(keyword);
-
-await openSingleTab(searchUrl);
-
-searchCount++;
-
-updateCounter();
-
-const min =
-Number(minDelay.value) * 1000;
-
-const max =
-Number(maxDelay.value) * 1000;
-
-await wait(
-Math.random() * (max - min) + min
-);
-
-}
-
-searchStatus.innerText =
-stopped ? "READY" : "DONE";
-
+  searchStatus.innerText = stopped ? "READY" : "DONE";
 }else{
-
-searchStatus.innerText =
-"OFF";
-
+  searchStatus.innerText = "OFF";
 }
 
 /* READ */
-
 if(readEnabled && !stopped){
+  readStatus.innerText = "READING";
 
-readStatus.innerText =
-"READING";
+  for(let i=0; i<Number(targetRead.value); i++){
+    if(stopped) break;
+    while(paused) await wait(300);
 
-for(
-let i=0;
-i<Number(targetRead.value);
-i++
-){
+    const link = readLinks[Math.floor(Math.random() * readLinks.length)];
+    await loadPage(link);
+    
+    readCount++;
+    updateCounter();
 
-if(stopped) break;
+    const min = Number(readMinDelay.value) * 1000;
+    const max = Number(readMaxDelay.value) * 1000;
+    await wait(Math.random() * (max - min) + min);
+  }
 
-while(paused){
-
-await wait(300);
-
-}
-
-const link =
-readLinks[
-Math.floor(
-Math.random() *
-readLinks.length
-)
-];
-await openSingleTab(link);
-
-readCount++;
-
-updateCounter();
-
-const min =
-Number(readMinDelay.value) * 1000;
-
-const max =
-Number(readMaxDelay.value) * 1000;
-
-await wait(
-Math.random() * (max - min) + min
-);
-
-}
-
-readStatus.innerText =
-stopped ? "STANDBY" : "SELESAI";
-
+  readStatus.innerText = stopped ? "STANDBY" : "SELESAI";
 }else{
+  if(!stopped) readStatus.innerText = "OFF";
+}
+
+/* SELESAI */
+frameContainer.style.display = "none";
+controls.style.display = "none";
+startBtn.style.display = "block";
 
 if(!stopped){
-
-readStatus.innerText =
-"OFF";
-
-}
-
-}
-
-/* CLOSE LAST TAB */
-
-if(activeTab && !activeTab.closed){
-
-activeTab.close();
-
-activeTab = null;
-
-}
-
-/* FINISH */
-
-controls.style.display =
-"none";
-
-startBtn.style.display =
-"block";
-
-if(!stopped){
-
-finishBox.style.display =
-"block";
-
-beep();
-
+  finishBox.style.display = "block";
+  beep();
 }
 
 running = false;
-
 }
 
 /* ========================= */
@@ -1387,9 +1316,7 @@ running = false;
 /* ========================= */
 
 startBtn.onclick = ()=>{
-
 startProcess();
-
 };
 
 /* ========================= */
@@ -1397,28 +1324,16 @@ startProcess();
 /* ========================= */
 
 pauseBtn.onclick = ()=>{
-
 paused = !paused;
 
 if(paused){
-
 pauseBtn.innerText = "Lanjut";
-
 searchStatus.innerText = "JEDA";
 readStatus.innerText = "JEDA";
-
 }else{
-
 pauseBtn.innerText = "Jeda";
-
-if(searchEnabled){
-searchStatus.innerText = "RUNNING";
-}
-
-if(readEnabled){
-readStatus.innerText = "READING";
-}
-
+if(searchEnabled) searchStatus.innerText = "RUNNING";
+if(readEnabled) readStatus.innerText = "READING";
 }
 
 };
@@ -1428,42 +1343,24 @@ readStatus.innerText = "READING";
 /* ========================= */
 
 stopBtn.onclick = ()=>{
-
 stopped = true;
-
 running = false;
-
 paused = false;
-
 pauseBtn.innerText = "Jeda";
 
 searchCount = 0;
 readCount = 0;
-
 updateCounter();
 
-if(activeTab && !activeTab.closed){
+frameContainer.style.display = "none";
+bingFrame.src = "about:blank";
 
-activeTab.close();
+searchStatus.innerText = "READY";
+readStatus.innerText = "STANDBY";
 
-activeTab = null;
-
-}
-
-searchStatus.innerText =
-"READY";
-
-readStatus.innerText =
-"STANDBY";
-
-controls.style.display =
-"none";
-
-startBtn.style.display =
-"block";
-
-finishBox.style.display =
-"none";
+controls.style.display = "none";
+startBtn.style.display = "block";
+finishBox.style.display = "none";
 
 };
 
