@@ -639,23 +639,32 @@ updateTotals();
 }
 
 /* ========================= */
-/* DATA KATA KUNCI */
+/* DATA KATA KUNCI - DIPERBAIKI */
 /* ========================= */
 let searchKeywords = [];
 
 window.addEventListener('load', function() {
 fetch("keywords.txt")
 .then(res => {
-if (!res.ok) throw new Error("File keywords.txt tidak ditemukan");
+if (!res.ok) throw new Error("File keywords.txt tidak ditemukan!");
 return res.text();
 })
 .then(data => {
-searchKeywords = data.trim().split("\n")
-.filter(keyword => keyword.trim() !== "")
-.map(k => k.trim());
-console.log("Jumlah kata kunci:", searchKeywords.length);
+// Bersihkan data: hapus spasi, baris kosong, duplikat
+searchKeywords = data.split("\n")
+.map(k => k.trim())
+.filter(k => k !== "")
+.filter((k, i, arr) => arr.indexOf(k) === i); // Hapus duplikat
+
+if(searchKeywords.length === 0){
+alert("File keywords.txt kosong! Isi dulu dengan kata kunci.");
+} else {
+console.log("Siap! Ada", searchKeywords.length, "kata kunci");
+}
 })
-.catch(err => alert("Error: Pastikan file keywords.txt ada di folder yang sama!"));
+.catch(err => {
+alert("Error: " + err.message + "\nPastikan file ada di folder yang sama.");
+});
 });
 
 /* ========================= */
@@ -726,21 +735,29 @@ setTimeout(()=>{osc.stop();},1500);
 }
 
 /* ========================= */
-/* BUKA TAB BARU - TIDAK DITUTUP */
+/* BUKA TAB BARU */
 /* ========================= */
 function openNewTab(url) {
 window.open(url, "_blank");
 }
 
 /* ========================= */
-/* MAIN PROCESS */
+/* MAIN PROCESS - DIPERBAIKI AGAR BERULANG */
 /* ========================= */
 async function startProcess(){
 if(running) return;
 
 if(searchKeywords.length === 0){
-alert("Data kata kunci belum siap! Cek file keywords.txt");
+alert("Belum ada kata kunci! Cek file keywords.txt");
 return;
+}
+
+// Cek target tidak lebih dari jumlah kata kunci
+let target = Number(targetSearch.value);
+if(target > searchKeywords.length){
+target = searchKeywords.length;
+targetSearch.value = target;
+alert("Jumlah target disesuaikan menjadi " + target + " (jumlah kata kunci tersedia)");
 }
 
 running = true;
@@ -757,11 +774,14 @@ pauseBtn.innerText = "Jeda";
 if(searchEnabled){
 searchStatus.innerText = "RUNNING";
 
-for(let i=0; i<Number(targetSearch.value); i++){
+// Loop sebanyak target yang diatur
+for(let i = 0; i < target; i++){
 if(stopped) break;
 while(paused) await wait(300);
 
-const keyword = searchKeywords[Math.floor(Math.random() * searchKeywords.length)];
+// Ambil kata kunci acak
+const randomIndex = Math.floor(Math.random() * searchKeywords.length);
+const keyword = searchKeywords[randomIndex];
 const searchUrl = "https://www.bing.com/search?q=" + encodeURIComponent(keyword);
 
 openNewTab(searchUrl);
@@ -769,6 +789,7 @@ openNewTab(searchUrl);
 searchCount++;
 updateCounter();
 
+// Jeda acak 15-30 detik
 const min = Number(minDelay.value) * 1000;
 const max = Number(maxDelay.value) * 1000;
 await wait(Math.random() * (max - min) + min);
